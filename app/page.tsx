@@ -33,73 +33,61 @@
 //   );
 // }
 
-
-
+// ...existing code...
 'use client'
-import { useState } from "react";
+import { useState } from 'react'
 
-export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("");
+export default function Home() {
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setStatus("Submitting...");
-  
-    try {
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-  
-      const data = await res.json();
-      if (res.ok) {
-        setStatus(data.message);
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setStatus(data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus("Something went wrong!");
-    }
-  };
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+    setEmail('')
+  }
 
   return (
-    //demo line for ci-cd
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input
-          type="text"
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          required
-          className="w-full border p-2"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-          className="w-full border p-2"
-        />
-        <textarea
-          placeholder="Message"
-          value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
-          required
-          className="w-full border p-2"
-        />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded">
-          Submit
-        </button>
-      </form>
-      {status && <p className="mt-3">{status}</p>}
-    </div>
-  );
-}
+    <div className="min-h-screen flex flex-col bg-white text-gray-800">
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <h1 className="text-lg font-bold">My App</h1>
+          <nav className="space-x-4 text-sm text-gray-600">
+            <a href="#features" className="hover:text-gray-900">Features</a>
+            <a href="#pricing" className="hover:text-gray-900">Pricing</a>
+            <a href="#contact" className="hover:text-gray-900">Contact</a>
+          </nav>
+        </div>
+      </header>
 
+      <main className="flex-1 container mx-auto px-6 py-12">
+        <section className="grid gap-8 md:grid-cols-2 items-center">
+          <div>
+            <h2 className="text-4xl font-extrabold leading-tight mb-4">Simple landing page for you</h2>
+            <p className="text-gray-600 mb-6">A clean, responsive template to showcase your product and collect interest.</p>
+            <div className="flex gap-3">
+              <a href="#features" className="inline-block bg-blue-600 text-white px-5 py-2 rounded">Get started</a>
+              <a href="#contact" className="inline-block border border-gray-300 px-5 py-2 rounded text-gray-700">Contact sales</a>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+            <div className="w-64 h-40 bg-gradient-to-br from-blue-100 to-blue-200 rounded-md flex items-center justify-center">
+              <span className="text-blue-700 font-semibold">Product preview</span>
+            </div>
+          </div>
+        </section>
+
+        
+
+        
+      </main>
+
+      <footer className="bg-gray-50 py-6">
+        <div className="container mx-auto px-6 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} My App. All rights reserved.
+        </div>
+      </footer>
+    </div>
+  )
+}
