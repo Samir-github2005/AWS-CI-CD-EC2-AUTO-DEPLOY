@@ -55,6 +55,7 @@ export default function Home() {
           <nav className="space-x-4 text-sm text-gray-600">
             <a href="#features" className="hover:text-gray-900">Features</a>
             <a href="#pricing" className="hover:text-gray-900">Pricing</a>
+            <a href="#contact" className="hover:text-gray-900">Contact</a>
           </nav>
         </div>
       </header>
